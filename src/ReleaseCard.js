@@ -1,4 +1,4 @@
-function Card({album, artist, image, url, id}) {
+function ReleaseCard({album, artist, image, url, id}) {
     return (
         <div className="card" style={{width: "18rem"}}>
             <img src={image} className="card-img-top" alt={`Album art of ${album}`}/>
@@ -11,4 +11,4 @@ function Card({album, artist, image, url, id}) {
     );
 }
 
-export default Card;
+export default ReleaseCard;
