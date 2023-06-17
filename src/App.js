@@ -2,10 +2,24 @@ import './App.css';
 import ReleaseCard from './ReleaseCard';
 import data from './data/sample.json';
 import Track from "./Track";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
+//
 function App() {
   const [tracks, setTracks] = useState([]);
+
+  useEffect( () => {
+      async function fetchData() {
+          const response = await fetch("https://api.spotify.com/v1/browse/new-releases", {
+              headers: {
+                  "Authorization": "Bearer BQBCwr2DpC4UMMLVQjukXZaKvn22LTUKnf-lvkWXfIDwxuwBeSqbFkZJwJnPx53FOPXV7-hqyqFYvU6i0nRt6IxU70Qj9fQtGT5RTy3_0T_y4Xxljss-Fz6Ftuo0j70gaVDKg6pSJ5EevmGvqSHiKZW_RmFaeaxDWWhL4zMI_ed8UgIgSchWmoJWJLP0SHj6veXd3VGFNs41QHk"
+              }
+          });
+          const albums = await response.json();
+          console.log(albums);
+      }
+      fetchData();
+  }, []);
 
   return (
     <div className="container">
