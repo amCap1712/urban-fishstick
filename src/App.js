@@ -2,14 +2,16 @@ import './App.css';
 import ReleaseCard from './ReleaseCard';
 import Track from "./Track";
 import {useEffect, useState} from "react";
+import Player from "./Player";
 
 //
 function App() {
   const [releases, setReleases] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState();
+  const [selectedTrack, setSelectedTrack] = useState();
 
-  const token = "BQC0F1qnCPmwSQjnOtHzgZYRSVosEwsn1DNIhWnbzWl-OkQ2SG4HBdYEb8gewDg75eAIJDo1_PG_erfTzxeQMLqT-NFXGPOBP87_KSQCmpPjhpvtjA7Q6dYZ31UsOoLpg4olfszeiqz-Xp6aXodYhozuvdz8bwf0Jci7GsdZSS1FK7yWtxJxC_nR5WHgwPApW0Y563N5nIBa7aM";
+  const token = "BQDrvz4ck9mHz4QXAu3eLAZwdeNMBLBcGUeP-Gs8SgjwsjkrBsqz5HpcoRwT-xPh1VvxKmu_aLJmnuxppcpvDOzNQnEF9ryBewWkWgG1Q1ljWtX6ifOEz8d2JfV2sPH70hFSjquDS4XselgyVwxOH8_F3ya0L-G9RRnmrzJ9cez-9C0AoZY7rKNFtRTB15p_7_-44cnDHzKbP-5Ghcf1rXaJqbb25g";
 
   useEffect( () => {
       async function fetchData() {
@@ -59,8 +61,13 @@ function App() {
             <div className="col-3">
                 <div className="row">
                     {tracks.map(item => (
-                        <Track artist={item["artists"][0]["name"]} url={item["external_urls"]["spotify"]} id={item.id} preview_url={item.preview_url} duration_ms={item.duration_ms} name={item.name} />
+                        <div onClick={() => setSelectedTrack(item)}>
+                            <Track artist={item["artists"][0]["name"]} url={item["external_urls"]["spotify"]} id={item.id} preview_url={item.preview_url} duration_ms={item.duration_ms} name={item.name} />
+                        </div>
                     ))}
+                </div>
+                <div className="row">
+                    <Player trackId={selectedTrack?.uri} />
                 </div>
             </div>
         </div>
